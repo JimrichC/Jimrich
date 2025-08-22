@@ -1,0 +1,95 @@
+import sys
+
+def to_binary(n):
+    """Converts an integer to a padded binary string."""
+    
+    return f"{n:08b}"
+
+def display_result(a, b, op_str, result):
+    """Prints the operation and its result in decimal and binary."""
+    print("\n--- Result ---")
+    print(f"Decimal: {a} {op_str} {b} = {result}")
+    
+    
+    if result >= 0:
+        bin_a = to_binary(a)
+        bin_b = to_binary(b)
+        bin_result = to_binary(result & 0xFF)
+        
+        
+        print(f"Binary:  {bin_a} ({a})")
+        print(f"         {op_str} {bin_b} ({b})")
+        print("         " + "-" * 8)
+        print(f"         {bin_result} ({result})")
+    else:
+        
+        print(f"Binary:  {bin(result)}")
+    print("-" * 14)
+
+def main():
+    """Main function to run the bitwise operations program."""
+    while True:
+        print("\n--- Bitwise Operations Menu ---")
+        print("1. Bitwise AND (&)")
+        print("2. Bitwise OR (|)")
+        print("3. Bitwise XOR (^)")
+        print("4. Left Shift (<<)")
+        print("5. Right Shift (>>)")
+        print("6. Bitwise NOT (~)")
+        print("7. Exit")
+        
+        choice = input("Enter your choice (1-7): ")
+
+        if choice == '7':
+            print("Exiting program. Goodbye!")
+            sys.exit()
+        
+        
+        if choice in ['1', '2', '3', '4', '5']:
+            try:
+                num1 = int(input("Enter the first integer: "))
+                num2 = int(input("Enter the second integer: "))
+            except ValueError:
+                print("Invalid input. Please enter integers only.")
+                continue
+        elif choice == '6': 
+            try:
+                num1 = int(input("Enter the integer: "))
+                num2 = None  
+            except ValueError:
+                print("Invalid input. Please enter an integer.")
+                continue
+        else:
+            print("Invalid choice. Please select a number from the menu.")
+            continue
+
+        result = 0
+        op_str = ""
+
+        if choice == '1':
+            result = num1 & num2
+            op_str = "&"
+        elif choice == '2':
+            result = num1 | num2
+            op_str = "|"
+        elif choice == '3':
+            result = num1 ^ num2
+            op_str = "^"
+        elif choice == '4':
+            
+            result = num1 << num2
+            op_str = "<<"
+        elif choice == '5':
+            
+            result = num1 >> num2
+            op_str = ">>"
+        elif choice == '6':
+            result = ~num1
+            op_str = "~"
+            num2 = ""
+        
+        
+        display_result(num1, num2, op_str, result)
+
+if __name__ == "__main__":
+    main()
